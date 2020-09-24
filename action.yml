@@ -1,0 +1,16 @@
+name: "Twist notification"
+description: "GitHub Action to send notifications to Twist using the webhooks API"
+inputs:
+  webhook_url:
+    description: "Webhook URL"
+    required: true
+  message:
+    description: "Message to send"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/notify.sh "${{ inputs.message }}"
+      shell: bash
+      env:
+        TWIST_WEBHOOK_URL: ${{ inputs.webhook_url }}
