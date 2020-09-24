@@ -9,4 +9,10 @@ messages="$*"
 # outputs valid JSON that can be used as payload for the Twist API
 json=$(ruby -rjson -e 'puts JSON.generate({ content: ARGV.join("\n") })' "$messages")
 
-echo "$json"
+curl --silent \
+  --retry 3 \
+  --max-time 15 \
+  --request POST \
+  --header 'Content-type: application/json' \
+  --data "$json" \
+  "$webhook_url"
