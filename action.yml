@@ -10,5 +10,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/notify.sh "${{ inputs.webhook_url }}" "${{ inputs.message }}"
+    - run: ${{ github.action_path }}/notify.sh
       shell: bash
+      env:
+        WEBHOOK_URL: "${{ inputs.webhook_url }}" 
+        MESSAGE: "${{ inputs.message }}"
